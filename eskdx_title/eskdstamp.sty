@@ -1,0 +1,1126 @@
+% Copyright 2006 Konstantin Korikov <lostclus@ua.fm>
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2003/12/01 or later.
+%
+% This work has the LPPL maintenance status "maintained".
+% 
+% This Current Maintainer of this work is Konstantin Korikov.
+%
+% This work consists of all files listed in manifest.txt.
+%
+
+%
+% This is automaticaly generated file, do not edit it.
+%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{eskdstamp}[2011/05/06 v0.98 Stamp GOST 2.104-68]
+
+\RequirePackage{calc}
+
+\newcommand{\ESKD@paper}{a4}
+
+\newif\ifESKD@landscape
+\ESKD@landscapefalse
+\newif\ifESKD@given@landscape
+\ESKD@given@landscapefalse
+
+\newcommand{\ESKD@default@style@title}{title}
+\newcommand{\ESKD@default@style@first}{formII}
+\newcommand{\ESKD@default@style@other}{formIIab}
+
+\newlength{\ESKD@margin@si}
+\newlength{\ESKD@margin@so}
+\newlength{\ESKD@margin@t}
+\newlength{\ESKD@margin@b}
+\setlength{\ESKD@margin@si}{20mm}
+\setlength{\ESKD@margin@so}{5mm}
+\setlength{\ESKD@margin@t}{5mm}
+\setlength{\ESKD@margin@b}{5mm}
+
+\newlength{\ESKDlineThick}
+\newlength{\ESKDlineThin}
+\setlength{\ESKDlineThick}{.4mm}
+\setlength{\ESKDlineThin}{.2mm}
+
+\newlength{\ESKD@padding@h}
+\newlength{\ESKD@padding@v}
+\setlength{\ESKD@padding@h}{3mm}
+\setlength{\ESKD@padding@v}{10mm}
+
+\newif\ifESKD@ignstamp
+\ESKD@ignstampfalse
+
+\newif\ifESKD@enable@column@vii
+\ESKD@enable@column@viitrue
+\newif\ifESKD@given@column@vii
+\ESKD@given@column@viifalse
+
+\newif\ifESKD@enable@column@viii
+\ESKD@enable@column@viiitrue
+
+\newif\ifESKD@enable@columns@xix
+\ESKD@enable@columns@xixtrue
+
+\newif\ifESKD@enable@columns@xxiv
+\ESKD@enable@columns@xxivfalse
+
+\newif\ifESKD@enable@column@xxvi
+\ESKD@enable@column@xxvifalse
+
+\newif\ifESKD@enable@columns@xxvii
+\ESKD@enable@columns@xxviifalse
+
+\newif\ifESKD@enable@column@xxxi
+\ESKD@enable@column@xxxitrue
+
+\newif\ifESKD@enable@column@xxxii
+\ESKD@enable@column@xxxiitrue
+
+\newif\ifESKD@enable@column@xxxiii
+\ESKD@enable@column@xxxiiifalse
+
+\newif\ifESKD@enable@column@xxxiv
+\ESKD@enable@column@xxxivfalse
+
+\newif\ifESKD@twoside
+\ESKD@twosidefalse
+
+\newif\ifESKD@zonelabels
+\ESKD@zonelabelsfalse
+
+\RequirePackage{keyval}
+
+\DeclareOption{a0paper}{\renewcommand{\ESKD@paper}{a0}}
+\DeclareOption{a1paper}{\renewcommand{\ESKD@paper}{a1}}
+\DeclareOption{a2paper}{\renewcommand{\ESKD@paper}{a2}}
+\DeclareOption{a3paper}{\renewcommand{\ESKD@paper}{a3}}
+\DeclareOption{a4paper}{\renewcommand{\ESKD@paper}{a4}}
+\DeclareOption{landscape}{%
+  \ESKD@landscapetrue%
+  \ESKD@given@landscapetrue}
+\DeclareOption{portrait}{%
+  \ESKD@landscapefalse%
+  \ESKD@given@landscapetrue}
+\define@key{eskd}{reduceheight}{\addtolength{\ESKD@margin@b}{#1}}
+\DeclareOption{formI}{%
+  \renewcommand{\ESKD@default@style@first}{formI}
+  \renewcommand{\ESKD@default@style@other}{formIIab}
+  \renewcommand{\ESKD@default@style@title}{title}}
+\DeclareOption{formII}{%
+  \renewcommand{\ESKD@default@style@first}{formII}
+  \renewcommand{\ESKD@default@style@other}{formIIab}
+  \renewcommand{\ESKD@default@style@title}{title}}
+\DeclareOption{emptystyle}{%
+  \renewcommand{\ESKD@default@style@first}{empty}
+  \renewcommand{\ESKD@default@style@other}{empty}
+  \renewcommand{\ESKD@default@style@title}{empty}}
+\DeclareOption{stitching}{\setlength{\ESKD@margin@si}{20mm}}
+\DeclareOption{nostitching}{%
+  \setlength{\ESKD@margin@si}{5mm}%
+  \ESKD@enable@columns@xixfalse%
+  \ESKD@enable@columns@xxivfalse}
+\DeclareOption{ignorestamp}{\ESKD@ignstamptrue}
+\DeclareOption{noignorestamp}{\ESKD@ignstampfalse}
+\DeclareOption{columnvii}{%
+  \ESKD@enable@column@viitrue%
+  \ESKD@given@column@viitrue}
+\DeclareOption{nocolumnvii}{
+  \ESKD@enable@column@viifalse%
+  \ESKD@given@column@viitrue}
+\DeclareOption{columnviii}{\ESKD@enable@column@viiitrue}
+\DeclareOption{nocolumnviii}{\ESKD@enable@column@viiifalse}
+\DeclareOption{columnsxix}{\ESKD@enable@columns@xixtrue}
+\DeclareOption{nocolumnsxix}{\ESKD@enable@columns@xixfalse}
+\DeclareOption{columnsxxiv}{\ESKD@enable@columns@xxivtrue}
+\DeclareOption{nocolumnsxxiv}{\ESKD@enable@columns@xxivfalse}
+\DeclareOption{columnxxvi}{\ESKD@enable@column@xxvitrue}
+\DeclareOption{nocolumnxxvi}{\ESKD@enable@column@xxvifalse}
+\DeclareOption{columnsxxvii}{\ESKD@enable@columns@xxviitrue}
+\DeclareOption{nocolumnsxxvii}{\ESKD@enable@columns@xxviifalse}
+\DeclareOption{columnxxxi}{\ESKD@enable@column@xxxitrue}
+\DeclareOption{nocolumnxxxi}{\ESKD@enable@column@xxxifalse}
+\DeclareOption{columnxxxii}{\ESKD@enable@column@xxxiitrue}
+\DeclareOption{nocolumnxxxii}{\ESKD@enable@column@xxxiifalse}
+\DeclareOption{columnxxxiii}{\ESKD@enable@column@xxxiiitrue}
+\DeclareOption{nocolumnxxxiii}{\ESKD@enable@column@xxxiiifalse}
+\DeclareOption{columnxxxiv}{\ESKD@enable@column@xxxivtrue}
+\DeclareOption{nocolumnxxxiv}{\ESKD@enable@column@xxxivfalse}
+\DeclareOption{simple}{%
+  \ESKD@enable@columns@xixfalse%
+  \ESKD@enable@column@xxxifalse%
+  \ESKD@enable@column@xxxiifalse}
+\DeclareOption{twoside}{\ESKD@twosidetrue}
+\DeclareOption{oneside}{\ESKD@twosidefalse}
+\DeclareOption{zonelabels}{\ESKD@zonelabelstrue}
+\DeclareOption{nozonelabels}{\ESKD@zonelabelsfalse}
+\define@key{eskd}{linethick}{\setlength{\ESKDlineThick}{#1}}
+\define@key{eskd}{linethin}{\setlength{\ESKDlineThin}{#1}}
+\define@key{eskd}{vpadding}{\setlength{\ESKD@padding@v}{#1}}
+\define@key{eskd}{hpadding}{\setlength{\ESKD@padding@h}{#1}}
+
+\DeclareOption*{\edef\@tempa{\noexpand\setkeys{eskd}{\CurrentOption}}\@tempa}
+
+\ProcessOptions\relax
+
+\newcommand{\ESKD@cmp@empty}{}
+\newcommand{\ESKD@cmp@aIVpaper}{a4}
+\newcommand{\ESKD@cmp@landscape}{landscape}
+
+\ifESKD@given@landscape\else
+  \ifx\ESKD@paper\ESKD@cmp@aIVpaper%
+    \ESKD@landscapefalse
+    \else
+    \ESKD@landscapetrue
+  \fi
+\fi
+
+\RequirePackage[\ESKD@paper paper,%
+\ifESKD@landscape landscape\else portrait\fi,%
+tmargin=\ESKD@margin@t+\ESKD@padding@v,%
+bmargin=\ESKD@margin@b+\ESKD@padding@v,%
+inner=\ESKD@margin@si+\ESKD@padding@h,%
+outer=\ESKD@margin@so+\ESKD@padding@h,%
+headheight=0mm,headsep=0mm,footskip=0mm]{geometry}
+
+\RequirePackage{lastpage}
+
+\def\ESKD@secondof#1#2#3endof{#2}
+\def\ESKD@p@genum#1{%
+  \ifx#1\relax 0\else
+   \expandafter\ESKD@secondof#1endof
+  \fi}
+\def\ESKD@pagenum#1{\expandafter\ESKD@p@genum\csname r@#1\endcsname}
+
+\ifESKD@given@column@vii\else
+  \AtBeginDocument{%
+    \ifnum \ESKD@pagenum{LastPage} = 1
+      \ESKD@enable@column@viifalse%
+    \fi}
+\fi
+
+\newif\ifESKD@column@xxvi@portrait
+\ESKD@column@xxvi@portraittrue
+\ifESKD@landscape\ESKD@column@xxvi@portraitfalse\fi
+\ifx\ESKD@paper\ESKD@cmp@aIVpaper\ESKD@column@xxvi@portraitfalse\fi
+
+\newlength{\ESKD@tmpdima}
+\newlength{\ESKD@tmpdimb}
+\newlength{\ESKD@tmpdimc}
+
+\newcount\ESKD@tmpcnta
+\newcount\ESKD@tmpcntb
+
+\newcount\ESKD@zonelabel@hc
+\newcount\ESKD@zonelabel@vc
+\newlength{\ESKD@zonelabel@hs}
+\newlength{\ESKD@zonelabel@vs}
+\newcount\ESKD@zonelabel@cnt
+\ifESKD@zonelabels
+  \@namedef{ESKD@zonelabel@init@a4}{%
+    \ESKD@zonelabel@hc = 1 \ESKD@zonelabel@vc = 1\relax}
+  \@namedef{ESKD@zonelabel@init@a3}{%
+    \ESKD@zonelabel@hc = 1 \ESKD@zonelabel@vc = 2\relax}
+  \@namedef{ESKD@zonelabel@init@a2}{%
+    \ESKD@zonelabel@hc = 2 \ESKD@zonelabel@vc = 2\relax}
+  \@namedef{ESKD@zonelabel@init@a1}{%
+    \ESKD@zonelabel@hc = 2 \ESKD@zonelabel@vc = 4\relax}
+  \@namedef{ESKD@zonelabel@init@a0}{%
+    \ESKD@zonelabel@hc = 4 \ESKD@zonelabel@vc = 4\relax}
+  \@nameuse{ESKD@zonelabel@init@\ESKD@paper}
+  \ifESKD@landscape
+    \ESKD@tmpcnta = \ESKD@zonelabel@hc
+    \ESKD@zonelabel@hc = \ESKD@zonelabel@vc
+    \ESKD@zonelabel@vc = \ESKD@tmpcnta
+  \fi
+  \ESKD@zonelabel@hs = \paperwidth
+  \ESKD@zonelabel@vs = \paperheight
+  \divide \ESKD@zonelabel@hs by \ESKD@zonelabel@hc
+  \divide \ESKD@zonelabel@vs by \ESKD@zonelabel@vc
+  \ESKD@zonelabel@cnt = 0
+\fi
+
+\newlength{\ESKD@origin@x}
+\newlength{\ESKD@origin@y}
+\setlength{\ESKD@origin@x}{1in}
+\setlength{\ESKD@origin@y}{\paperheight-1in}
+
+\newlength{\ESKDframeX}
+\newlength{\ESKDframeY}
+
+\newlength{\ESKDframeW}
+\newlength{\ESKDframeH}
+\setlength{\ESKDframeW}{\paperwidth-\ESKD@margin@si-\ESKD@margin@so}
+\setlength{\ESKDframeH}{\paperheight-\ESKD@margin@t-\ESKD@margin@b}
+
+\newlength{\ESKDstampX}
+\newlength{\ESKDstampY}
+
+\RequirePackage{eskdfont}
+\RequirePackage{eskdlang}
+
+\newcommand*{\ESKDltu}[1]{#1\@gobble}
+
+\newcommand{\ESKDonFrontSideOnly}[1]{%
+  \ifESKD@twoside\ifodd\c@page#1\fi\else#1\fi}
+
+\RequirePackage{rotating}
+
+\newsavebox{\ESKD@frame@box}
+\AtBeginDocument{%
+\savebox{\ESKD@frame@box}{%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(0,0)
+\linethickness{\ESKDlineThick}
+\put(0,\ESKDltu{\ESKDframeH}){\line(1,0){\ESKDltu{\ESKDframeW}}}
+\put(0,0){\line(1,0){\ESKDltu{\ESKDframeW}}}
+\put(0,0){\line(0,1){\ESKDltu{\ESKDframeH}}}
+\put(\ESKDltu{\ESKDframeW},0){\line(0,1){\ESKDltu{\ESKDframeH}}}
+\end{picture}}}
+\newcommand{\ESKDdrawFrame}{%
+  \put(\ESKDltu{\ESKDframeX},\ESKDltu{\ESKDframeY}){%
+    \usebox{\ESKD@frame@box}}}
+
+\newsavebox{\ESKD@stamp@i@box}
+\AtBeginDocument{%
+\savebox{\ESKD@stamp@i@box}{%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(0,0)
+\linethickness{\ESKDlineThick}
+\put(0,55){\line(1,0){185}}
+\put(65,40){\line(1,0){120}}
+\put(0,35){\line(1,0){65}}
+\put(135,35){\line(1,0){50}}
+\put(0,30){\line(1,0){65}}
+\put(135,20){\line(1,0){50}}
+\put(65,15){\line(1,0){120}}
+\linethickness{\ESKDlineThin}
+\multiput(0,50)(0,-5){3}{\line(1,0){65}}
+\multiput(0,25)(0,-5){5}{\line(1,0){65}}
+\linethickness{\ESKDlineThick}
+\put(0,0){\line(0,1){55}}
+\put(7,30){\line(0,1){25}}
+\put(17,0){\line(0,1){55}}
+\put(40,0){\line(0,1){55}}
+\put(55,0){\line(0,1){55}}
+\put(65,0){\line(0,1){55}}
+\put(135,0){\line(0,1){40}}
+\put(150,20){\line(0,1){20}}
+\put(155,15){\line(0,1){5}}
+\put(167,20){\line(0,1){20}}
+\linethickness{\ESKDlineThin}
+\multiput(140,20)(5,0){2}{\line(0,1){15}}
+\put(67, 41){\parbox[b][13mm][c]{106mm}{\centering\ESKDfontVII\ESKDtheColumnII}}
+\put(135, 36.3){\makebox[15mm]{\ESKDfontIII\ESKDcolumnIVname}}
+\put(150, 36.3){\makebox[17mm]{\ESKDfontIII\ESKDcolumnVname}}
+\put(167, 36.3){\makebox[18mm]{\ESKDfontIII\ESKDcolumnVIname}}
+\put(0.5, 26.3){\makebox[16mm][l]{\ESKDfontIII\ESKDcolumnXfIname}}
+\put(0.5, 21.3){\makebox[16mm][l]{\ESKDfontIII\ESKDcolumnXfIIname}}
+\put(0.5, 16.3){\makebox[16mm][l]{\ESKDfontIII\ESKDcolumnXfIIIname}}
+\put(0.5, 11.3){\makebox[16mm][l]{\ESKDfontIII\ESKDcolumnXfIVname}}
+\put(0.5, 6.3){\makebox[16mm][l]{\ESKDfontIII\ESKDcolumnXfVname}}
+\put(0.5, 1.3){\makebox[16mm][l]{\ESKDfontIII\ESKDcolumnXfVIname}}
+\put(17.5, 26.3){\makebox[22mm][l]{\ESKDfontIII\ESKDtheColumnXIfI}}
+\put(17.5, 21.3){\makebox[22mm][l]{\ESKDfontIII\ESKDtheColumnXIfII}}
+\put(17.5, 16.3){\makebox[22mm][l]{\ESKDfontIII\ESKDtheColumnXIfIII}}
+\put(17.5, 11.3){\makebox[22mm][l]{\ESKDfontIII\ESKDtheColumnXIfIV}}
+\put(17.5, 6.3){\makebox[22mm][l]{\ESKDfontIII\ESKDtheColumnXIfV}}
+\put(17.5, 1.3){\makebox[22mm][l]{\ESKDfontIII\ESKDtheColumnXIfVI}}
+\put(0, 31.3){\makebox[7mm]{\ESKDfontIII\ESKDcolumnXIVname}}
+\put(7, 31.3){\makebox[10mm]{\ESKDfontIII\ESKDcolumnXVname}}
+\put(17, 31.3){\makebox[23mm]{\ESKDfontIII\ESKDcolumnXVIname}}
+\put(40, 31.3){\makebox[15mm]{\ESKDfontIII\ESKDcolumnXVIIname}}
+\put(55, 31.3){\makebox[10mm]{\ESKDfontIII\ESKDcolumnXVIIIname}}
+\end{picture}}}
+\newcommand{\ESKD@stamp@i@var}{%
+\begin{picture}(0,0)(0,0)
+\ifnum \c@page = 1
+  \put(67, 16){\parbox[b][23mm][c]{66mm}{\centering\ESKDfontV\ESKDtheColumnI}}
+  \put(67, 1){\parbox[b][13mm][c]{66mm}{\centering\ESKDfontV\ESKDtheColumnIII}}
+  \put(135, 26.3){\makebox[5mm]{\ESKDfontIII\ESKDtheColumnIVfI}}
+  \put(140, 26.3){\makebox[5mm]{\ESKDfontIII\ESKDtheColumnIVfII}}
+  \put(145, 26.3){\makebox[5mm]{\ESKDfontIII\ESKDtheColumnIVfIII}}
+  \put(151, 21){\parbox[b][13mm][c]{15mm}{\centering\ESKDfontIII\ESKDtheColumnV}}
+  \put(168, 21){\parbox[b][13mm][c]{16mm}{\centering\ESKDfontIII\ESKDtheColumnVI}}
+  \ifESKD@enable@column@viii
+    \put(155, 16.3){\makebox[30mm]{\ESKDfontIII%
+      \ifESKD@twoside\ESKDcolumnVIIItwosideName\else\ESKDcolumnVIIIname\fi%
+      \ \pageref{LastPage}}}
+  \fi
+  \put(137, 1){\parbox[b][13mm][c]{46mm}{\centering\ESKDfontV\ESKDtheColumnIX}}
+\fi
+\ifESKD@enable@column@vii
+  \put(135, 16.3){\makebox[20mm]{\ESKDfontIII%
+    \ifESKD@twoside\ESKDcolumnVIItwosideName\else\ESKDcolumnVIIname\fi\ \thepage}}
+\fi
+\end{picture}}
+\newcommand{\ESKDdrawStampI}{%
+  \put(\ESKDltu{\ESKDstampX},\ESKDltu{\ESKDstampY}){%
+    \usebox{\ESKD@stamp@i@box}}
+  \put(\ESKDltu{\ESKDstampX},\ESKDltu{\ESKDstampY}){%
+    \ESKD@stamp@i@var}}
+
+\newsavebox{\ESKD@stamp@ii@box}
+\AtBeginDocument{%
+\savebox{\ESKD@stamp@ii@box}{%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(0,0)
+\linethickness{\ESKDlineThick}
+\put(0,40){\line(1,0){185}}
+\put(0,30){\line(1,0){65}}
+\put(0,25){\line(1,0){185}}
+\put(135,20){\line(1,0){50}}
+\put(135,15){\line(1,0){50}}
+\linethickness{\ESKDlineThin}
+\put(0,35){\line(1,0){65}}
+\multiput(0,20)(0,-5){4}{\line(1,0){65}}
+\linethickness{\ESKDlineThick}
+\put(0,0){\line(0,1){40}}
+\put(7,25){\line(0,1){15}}
+\put(17,0){\line(0,1){40}}
+\put(40,0){\line(0,1){40}}
+\put(55,0){\line(0,1){40}}
+\put(65,0){\line(0,1){40}}
+\put(135,0){\line(0,1){25}}
+\put(140,15){\line(0,1){5}}
+\put(145,15){\line(0,1){5}}
+\put(150,15){\line(0,1){10}}
+\put(165,15){\line(0,1){10}}
+\put(67, 1){\parbox[b][23mm][c]{66mm}{\centering\ESKDfontV\ESKDtheColumnI}}
+\put(67, 26){\parbox[b][13mm][c]{106mm}{\centering\ESKDfontVII\ESKDtheColumnII}}
+\put(135, 21.3){\makebox[15mm]{\ESKDfontIII\ESKDcolumnIVname}}
+\put(135, 16.3){\makebox[5mm][c]{\ESKDfontIII\ESKDtheColumnIVfI}}
+\put(140, 16.3){\makebox[5mm][c]{\ESKDfontIII\ESKDtheColumnIVfII}}
+\put(145, 16.3){\makebox[5mm][c]{\ESKDfontIII\ESKDtheColumnIVfIII}}
+\put(150, 21.3){\makebox[15mm]{\ESKDfontIII%
+  \ifESKD@twoside\ESKDcolumnVIItwosideName\else\ESKDcolumnVIIname\fi}}
+\put(165, 21.3){\makebox[20mm]{\ESKDfontIII%
+  \ifESKD@twoside\ESKDcolumnVIIItwosideName\else\ESKDcolumnVIIIname\fi}}
+\put(137, 1){\parbox[b][13mm][c]{46mm}{\centering\ESKDfontV\ESKDtheColumnIX}}
+\put(0.5, 21.3){\makebox[16mm][l]{\ESKDfontIII\ESKDcolumnXfIname}}
+\put(0.5, 16.3){\makebox[16mm][l]{\ESKDfontIII\ESKDcolumnXfIIname}}
+\put(0.5, 11.3){\makebox[16mm][l]{\ESKDfontIII\ESKDcolumnXfIVname}}
+\put(0.5, 6.3){\makebox[16mm][l]{\ESKDfontIII\ESKDcolumnXfVname}}
+\put(0.5, 1.3){\makebox[16mm][l]{\ESKDfontIII\ESKDcolumnXfVIname}}
+\put(17.5, 21.3){\makebox[22mm][l]{\ESKDfontIII\ESKDtheColumnXIfI}}
+\put(17.5, 16.3){\makebox[22mm][l]{\ESKDfontIII\ESKDtheColumnXIfII}}
+\put(17.5, 11.3){\makebox[22mm][l]{\ESKDfontIII\ESKDtheColumnXIfIV}}
+\put(17.5, 6.3){\makebox[22mm][l]{\ESKDfontIII\ESKDtheColumnXIfV}}
+\put(17.5, 1.3){\makebox[22mm][l]{\ESKDfontIII\ESKDtheColumnXIfVI}}
+\put(0, 26.3){\makebox[7mm]{\ESKDfontIII\ESKDcolumnXIVname}}
+\put(7, 26.3){\makebox[10mm]{\ESKDfontIII\ESKDcolumnXVname}}
+\put(17, 26.3){\makebox[23mm]{\ESKDfontIII\ESKDcolumnXVIname}}
+\put(40, 26.3){\makebox[15mm]{\ESKDfontIII\ESKDcolumnXVIIname}}
+\put(55, 26.3){\makebox[10mm]{\ESKDfontIII\ESKDcolumnXVIIIname}}
+\end{picture}}}
+\newcommand{\ESKD@stamp@ii@var}{%
+\begin{picture}(0,0)(0,0)
+\ifESKD@enable@column@vii
+  \put(150, 16.3){\makebox[15mm]{\ESKDfontIII\thepage}}
+\fi
+\ifESKD@enable@column@viii
+  \put(165, 16.3){\makebox[20mm]{\ESKDfontIII\pageref{LastPage}}}
+\fi
+\end{picture}}
+\newcommand{\ESKDdrawStampII}{%
+  \put(\ESKDltu{\ESKDstampX},\ESKDltu{\ESKDstampY}){%
+    \usebox{\ESKD@stamp@ii@box}}
+  \put(\ESKDltu{\ESKDstampX},\ESKDltu{\ESKDstampY}){%
+    \ESKD@stamp@ii@var}}
+
+\newsavebox{\ESKD@stamp@ii@a@box}
+\AtBeginDocument{%
+\savebox{\ESKD@stamp@ii@a@box}{%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(0,0)
+\linethickness{\ESKDlineThick}
+\put(0,15){\line(1,0){185}}
+\put(175,8){\line(1,0){10}}
+\put(0,5){\line(1,0){65}}
+\linethickness{\ESKDlineThin}
+\put(0,10){\line(1,0){65}}
+\linethickness{\ESKDlineThick}
+\put(0,0){\line(0,1){15}}
+\put(7,0){\line(0,1){15}}
+\put(17,0){\line(0,1){15}}
+\put(40,0){\line(0,1){15}}
+\put(55,0){\line(0,1){15}}
+\put(65,0){\line(0,1){15}}
+\put(175,0){\line(0,1){15}}
+\put(67, 1){\parbox[b][13mm][c]{106mm}{\centering\ESKDfontVII\ESKDtheColumnII}}
+\put(175, 10.3){\makebox[10mm]{\ESKDfontIII%
+  \ifESKD@twoside\ESKDcolumnVIItwosideName\else\ESKDcolumnVIIname\fi}}
+\put(0, 1.3){\makebox[7mm]{\ESKDfontIII\ESKDcolumnXIVname}}
+\put(7, 1.3){\makebox[10mm]{\ESKDfontIII\ESKDcolumnXVname}}
+\put(17, 1.3){\makebox[23mm]{\ESKDfontIII\ESKDcolumnXVIname}}
+\put(40, 1.3){\makebox[15mm]{\ESKDfontIII\ESKDcolumnXVIIname}}
+\put(55, 1.3){\makebox[10mm]{\ESKDfontIII\ESKDcolumnXVIIIname}}
+\end{picture}}}
+\newcommand{\ESKD@stamp@ii@a@var}{%
+\begin{picture}(0,0)(0,0)
+\ifESKD@enable@column@vii
+  \put(175, 3){\makebox[10mm]{\ESKDfontIII\thepage}}
+\fi
+\end{picture}}
+\newcommand{\ESKDdrawStampIIa}{%
+  \put(\ESKDltu{\ESKDstampX},\ESKDltu{\ESKDstampY}){%
+    \usebox{\ESKD@stamp@ii@a@box}}
+  \put(\ESKDltu{\ESKDstampX},\ESKDltu{\ESKDstampY}){%
+    \ESKD@stamp@ii@a@var}}
+
+\newsavebox{\ESKD@stamp@ii@b@box}
+\AtBeginDocument{%
+\savebox{\ESKD@stamp@ii@b@box}{%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(0,0)
+\linethickness{\ESKDlineThick}
+\put(0,15){\line(1,0){185}}
+\put(0,8){\line(1,0){10}}
+\put(120,5){\line(1,0){65}}
+\linethickness{\ESKDlineThin}
+\put(120,10){\line(1,0){65}}
+\linethickness{\ESKDlineThick}
+\put(0,0){\line(0,1){15}}
+\put(10,0){\line(0,1){15}}
+\put(120,0){\line(0,1){15}}
+\put(127,0){\line(0,1){15}}
+\put(137,0){\line(0,1){15}}
+\put(160,0){\line(0,1){15}}
+\put(175,0){\line(0,1){15}}
+\put(12, 1){\parbox[b][13mm][c]{106mm}{\centering\ESKDfontVII\ESKDtheColumnII}}
+\put(0, 10.3){\makebox[10mm]{\ESKDfontIII%
+  \ifESKD@twoside\ESKDcolumnVIItwosideName\else\ESKDcolumnVIIname\fi}}
+\put(120, 1.3){\makebox[7mm]{\ESKDfontIII\ESKDcolumnXIVname}}
+\put(127, 1.3){\makebox[10mm]{\ESKDfontIII\ESKDcolumnXVname}}
+\put(137, 1.3){\makebox[23mm]{\ESKDfontIII\ESKDcolumnXVIname}}
+\put(160, 1.3){\makebox[15mm]{\ESKDfontIII\ESKDcolumnXVIIname}}
+\put(175, 1.3){\makebox[10mm]{\ESKDfontIII\ESKDcolumnXVIIIname}}
+\end{picture}}}
+\newcommand{\ESKD@stamp@ii@b@var}{%
+\begin{picture}(0,0)(0,0)
+\ifESKD@enable@column@vii
+  \put(0, 3){\makebox[10mm]{\ESKDfontIII\thepage}}
+\fi
+\end{picture}}
+\newcommand{\ESKDdrawStampIIb}{%
+  \put(\ESKDltu{\ESKDstampX},\ESKDltu{\ESKDstampY}){%
+    \usebox{\ESKD@stamp@ii@b@box}}
+  \put(\ESKDltu{\ESKDstampX},\ESKDltu{\ESKDstampY}){%
+    \ESKD@stamp@ii@b@var}}
+
+\ifESKD@enable@columns@xix
+\newsavebox{\ESKD@columns@xix@box}
+\AtBeginDocument{%
+\savebox{\ESKD@columns@xix@box}{%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(0,0)
+\linethickness{\ESKDlineThick}
+\put(0,12){\line(1,0){145}}
+\put(0,7){\line(1,0){145}}
+\put(0,0){\line(0,1){12}}
+\put(25,0){\line(0,1){12}}
+\put(60,0){\line(0,1){12}}
+\put(85,0){\line(0,1){12}}
+\put(110,0){\line(0,1){12}}
+\put(145,0){\line(0,1){12}}
+\put(0, 8.3){\makebox[25mm]{\ESKDfontIII\ESKDcolumnXIXname}}
+\put(0, 2.3){\makebox[25mm]{\ESKDfontIII\ESKDtheColumnXIX}}
+\put(25, 8.3){\makebox[35mm]{\ESKDfontIII\ESKDcolumnXXname}}
+\put(60, 8.3){\makebox[25mm]{\ESKDfontIII\ESKDcolumnXXIname}}
+\put(60, 2.3){\makebox[25mm]{\ESKDfontIII\ESKDtheColumnXXI}}
+\put(85, 8.3){\makebox[25mm]{\ESKDfontIII\ESKDcolumnXXIIname}}
+\put(85, 2.3){\makebox[25mm]{\ESKDfontIII\ESKDtheColumnXXII}}
+\put(110, 8.3){\makebox[35mm]{\ESKDfontIII\ESKDcolumnXXIIIname}}
+\end{picture}}}
+\newcommand{\ESKDdrawColumnsXIX}{%
+  \ESKDonFrontSideOnly{%
+    \put(\ESKDltu{\ESKDframeX},\ESKDltu{\ESKDframeY}){%
+      \begin{turn}{90}\usebox{\ESKD@columns@xix@box}\end{turn}}}}
+\fi
+
+\ifESKD@enable@columns@xxiv
+\newsavebox{\ESKD@columns@xxiv@box}
+\AtBeginDocument{%
+\savebox{\ESKD@columns@xxiv@box}{%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(0,0)
+\linethickness{\ESKDlineThick}
+\put(0,12){\line(1,0){120}}
+\put(0,7){\line(1,0){120}}
+\put(0,0){\line(0,1){12}}
+\put(60,0){\line(0,1){12}}
+\put(120,0){\line(0,1){12}}
+\put(0, 8.3){\makebox[60mm]{\ESKDfontIII\ESKDcolumnXXIVname}}
+\put(0, 2.3){\makebox[60mm]{\ESKDfontIII\ESKDtheColumnXXIV}}
+\put(60, 8.3){\makebox[60mm]{\ESKDfontIII\ESKDcolumnXXVname}}
+\put(60, 2.3){\makebox[60mm]{\ESKDfontIII\ESKDtheColumnXXV}}
+\end{picture}}}
+\newcommand{\ESKDdrawColumnsXXIV}{%
+  \setlength{\ESKD@tmpdima}{\ESKDframeY+167mm}
+  \put(\ESKDltu{\ESKDframeX},\ESKDltu{\ESKD@tmpdima}){%
+    \begin{turn}{90}\usebox{\ESKD@columns@xxiv@box}\end{turn}}}
+\fi
+
+\ifESKD@enable@column@xxvi
+\newsavebox{\ESKD@column@xxvi@box}
+\AtBeginDocument{%
+\savebox{\ESKD@column@xxvi@box}{%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(0,0)
+\linethickness{\ESKDlineThick}
+\put(0,0){\line(1,0){70}}
+\put(70,0){\line(0,1){14}}
+\put(1,13){\begin{turn}{180}\parbox[b][12mm][c]{68mm}{%
+  \centering\ESKDfontV\ESKDtheColumnII}\end{turn}}
+\end{picture}}}
+\newcommand{\ESKDdrawColumnXXVI}{%
+  \ifESKD@column@xxvi@portrait%
+    \setlength{\ESKD@tmpdima}{\ESKDframeX+\ESKDframeW-14mm}%
+    \setlength{\ESKD@tmpdimb}{\ESKDframeY+\ESKDframeH}%
+    \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){%
+      \begin{turn}{270}\usebox{\ESKD@column@xxvi@box}\end{turn}}%
+  \else%
+    \setlength{\ESKD@tmpdima}{\ESKDframeY+\ESKDframeH-14mm}%
+    \put(\ESKDltu{\ESKDframeX},\ESKDltu{\ESKD@tmpdima}){%
+      \usebox{\ESKD@column@xxvi@box}}%
+  \fi}
+\fi
+
+\ifESKD@enable@columns@xxvii
+\newsavebox{\ESKD@columns@xxvii@i@box}
+\AtBeginDocument{%
+\savebox{\ESKD@columns@xxvii@i@box}{%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(0,0)
+\linethickness{\ESKDlineThick}
+\put(14,7){\line(1,0){53}}
+\put(0,0){\line(1,0){67}}
+\put(14,0){\line(0,1){14}}
+\put(67,0){\line(0,1){14}}
+\put(0,13){\begin{turn}{180}\parbox[b][12mm][c]{14mm}{%
+  \centering\ESKDfontV\ESKDtheColumnXXVII}\end{turn}}
+\put(14,11.7){\begin{turn}{180}\makebox[53mm][c]{%
+  \ESKDfontIII\ESKDtheColumnXXVIII}\end{turn}}
+\put(14,4.7){\begin{turn}{180}\makebox[53mm][c]{%
+  \ESKDfontIII\ESKDtheColumnXXIX}\end{turn}}
+\end{picture}}}
+\newsavebox{\ESKD@columns@xxvii@ii@box}
+\AtBeginDocument{%
+\savebox{\ESKD@columns@xxvii@ii@box}{%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(0,0)
+\linethickness{\ESKDlineThick}
+\put(0,14){\line(1,0){120}}
+\put(0,0){\line(0,1){14}}
+\put(14,0){\line(0,1){14}}
+\put(67,0){\line(0,1){14}}
+\put(0,0){\parbox[b][14mm][c]{14mm}{%
+  \centering\ESKDfontIII\ESKDtheColumnXXVII}}
+\put(15,0){\parbox[b][14mm][c]{51mm}{%
+  \centering\ESKDfontIII\ESKDtheColumnXXVIII}}
+\put(68,0){\parbox[b][14mm][c]{51mm}{%
+  \centering\ESKDfontIII\ESKDtheColumnXXIX}}
+\end{picture}}}
+\newsavebox{\ESKD@column@xxx@box}
+\AtBeginDocument{%
+\savebox{\ESKD@column@xxx@box}{%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(0,0)
+\linethickness{\ESKDlineThick}
+\put(0,8){\line(1,0){120}}
+\put(0,0){\line(0,1){8}}
+\put(1,1){\parbox[b][6mm][c]{118mm}{\centering\ESKDfontV\ESKDtheColumnXXX}}
+\end{picture}}}
+\newcommand{\ESKDdrawColumnsXXVIIi}{%
+  \ifESKD@column@xxvi@portrait%
+    \setlength{\ESKD@tmpdima}{\ESKDframeX+\ESKDframeW-14mm}%
+    \setlength{\ESKD@tmpdimb}{\ESKDframeY+\ESKDframeH-70mm}%
+    \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){%
+      \begin{turn}{270}\usebox{\ESKD@columns@xxvii@i@box}\end{turn}}%
+  \else%
+    \setlength{\ESKD@tmpdima}{\ESKDframeX+70mm}%
+    \setlength{\ESKD@tmpdimb}{\ESKDframeY+\ESKDframeH-14mm}%
+    \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){%
+      \usebox{\ESKD@columns@xxvii@i@box}}%
+  \fi%
+  \setlength{\ESKD@tmpdima}{\ESKDstampX+65mm}%
+  \setlength{\ESKD@tmpdimb}{\ESKDstampY+55mm}%
+  \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){%
+    \usebox{\ESKD@column@xxx@box}}}%
+\newcommand{\ESKDdrawColumnsXXVIIii}{%
+  \setlength{\ESKD@tmpdima}{\ESKDstampX+65mm}
+  \setlength{\ESKD@tmpdimb}{\ESKDstampY+48mm}
+  \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){%
+    \usebox{\ESKD@columns@xxvii@ii@box}}%
+  \setlength{\ESKD@tmpdimb}{\ESKDstampY+40mm}%
+  \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){%
+    \usebox{\ESKD@column@xxx@box}}}
+\fi
+
+\ifESKD@enable@column@xxxi
+\newcommand{\ESKDdrawColumnXXXI}{%
+  \setlength{\ESKD@tmpdima}{\ESKDframeX+\ESKDframeW-120mm}%
+  \setlength{\ESKD@tmpdimb}{\ESKDframeY-3.7mm}%
+  \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){%
+    \makebox[70mm][r]{\ESKDfontIII\ESKDcolumnXXXIname\hspace{4em}}}}
+\fi
+
+\ifESKD@enable@column@xxxii
+\newcommand{\ESKDdrawColumnXXXII}{%
+  \setlength{\ESKD@tmpdima}{\ESKDframeX+\ESKDframeW-50mm}%
+  \setlength{\ESKD@tmpdimb}{\ESKDframeY-3.7mm}%
+  \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){%
+    \makebox[50mm][r]{\ESKDfontIII\ESKDtheColumnXXXII}}}
+\fi
+
+\ifESKD@enable@column@xxxiii
+\newsavebox{\ESKD@column@xxxiii@box}
+\AtBeginDocument{%
+\savebox{\ESKD@column@xxxiii@box}{%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(0,0)
+\linethickness{\ESKDlineThick}
+\put(0,25){\line(1,0){20}}
+\put(0,5){\line(1,0){20}}
+\put(0,0){\line(1,0){20}}
+\put(0,0){\line(0,1){25}}
+\linethickness{\ESKDlineThin}
+\multiput(0,20)(0,-5){3}{\line(1,0){20}}
+\put(0,1.3){\makebox[20mm][c]{\ESKDfontIII\ESKDcolumnXXXIIIname}}
+\end{picture}}}
+\newcommand{\ESKDdrawColumnXXXIII}{%
+  \setlength{\ESKD@tmpdima}{\ESKDstampX-20mm}%
+  \setlength{\ESKD@tmpdimb}{\ESKDstampY+30mm}%
+  \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){%
+    \usebox{\ESKD@column@xxxiii@box}}}
+\fi
+
+\ifESKD@enable@column@xxxiv
+\newsavebox{\ESKD@column@xxxiv@box}
+\AtBeginDocument{%
+\savebox{\ESKD@column@xxxiv@box}{%
+\setlength{\fboxrule}{\ESKDlineThick}%
+\setlength{\fboxsep}{1.3mm}%
+\parbox[b][100mm+\fboxrule][t]{70mm+\fboxrule}{%
+  \framebox{%
+    \parbox{70mm-2\fboxsep-\fboxrule}{\centering\ESKDfontIII%
+      \ESKDtheColumnXXXIV\rule{0mm}{7mm-2\fboxsep-\fboxrule}}}}}}
+\newcommand{\ESKDdrawColumnXXXIV}{%
+  \ifESKD@column@xxvi@portrait%
+    \setlength{\ESKD@tmpdima}{%
+      \ESKDframeX+\ESKDframeW-114mm-.5\ESKDlineThick}%
+    \setlength{\ESKD@tmpdimb}{%
+      \ESKDframeY+\ESKDframeH+.5\ESKDlineThick}%
+    \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){%
+      \begin{turn}{270}\usebox{\ESKD@column@xxxiv@box}\end{turn}}%
+  \else%
+    \setlength{\ESKD@tmpdima}{\ESKDframeX-.5\ESKDlineThick}%
+    \setlength{\ESKD@tmpdimb}{%
+      \ESKDframeY+\ESKDframeH-114mm-.5\ESKDlineThick}%
+    \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){%
+      \usebox{\ESKD@column@xxxiv@box}}%
+  \fi}
+\fi
+
+\ifESKD@zonelabels
+\newcommand{\ESKD@make@h@zonelabels}{
+  \ESKD@tmpcnta = 1
+  \ESKD@tmpdima = \paperwidth
+  \ESKD@tmpdimb = \ESKDframeY
+  \advance \ESKD@tmpdimb \ESKDframeH
+  \ESKD@tmpdimc = \ESKDframeY
+  \advance \ESKD@tmpdimc -5mm
+  \loop
+    \advance \ESKD@tmpdima -\ESKD@zonelabel@hs
+    \global\advance \ESKD@zonelabel@cnt 1
+    \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){%
+      \parbox[b][5mm][c]{\ESKD@zonelabel@hs}{%
+	\centering\ESKDfontIII\number\ESKD@zonelabel@cnt}}
+    \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimc}){%
+      \parbox[b][5mm][c]{\ESKD@zonelabel@hs}{%
+	\centering\ESKDfontIII\number\ESKD@zonelabel@cnt}}
+  \ifnum \ESKD@tmpcnta < \ESKD@zonelabel@hc
+    \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimb}){\line(0,1){5}}
+    \put(\ESKDltu{\ESKD@tmpdima},\ESKDltu{\ESKD@tmpdimc}){\line(0,1){5}}
+    \advance \ESKD@tmpcnta 1
+  \repeat
+}
+\newcommand{\ESKD@make@v@zonelabels}[1]{
+  \ESKD@tmpcnta = 1
+  \ESKD@tmpdima = 0mm
+  \ESKD@tmpdimb = \ESKDframeX
+  \advance \ESKD@tmpdimb -5mm
+  \ESKD@tmpdimc = \ESKDframeX
+  \advance \ESKD@tmpdimc \ESKDframeW
+  \loop
+    \put(\ESKDltu{\ESKD@tmpdimb},\ESKDltu{\ESKD@tmpdima}){%
+      \parbox[b][\ESKD@zonelabel@vs][c]{5mm}{%
+	\centering\ESKDfontIII\@Alph\ESKD@tmpcnta
+	\ifnum\ESKD@tmpcnta = 1
+	  \ifESKD@enable@columns@xix
+	    \par\rule{0mm}{3.5mm-\ESKD@zonelabel@vs+310mm}
+	  \fi
+	\fi}}
+    \put(\ESKDltu{\ESKD@tmpdimc},\ESKDltu{\ESKD@tmpdima}){%
+      \parbox[b][\ESKD@zonelabel@vs][c]{5mm}{%
+	\centering\ESKDfontIII\@Alph\ESKD@tmpcnta}}
+  \ifnum \ESKD@tmpcnta < \ESKD@zonelabel@vc
+    \advance \ESKD@tmpdima \ESKD@zonelabel@vs
+    \ifnum \ESKD@tmpcnta = #1\else
+      \put(\ESKDltu{\ESKD@tmpdimb},\ESKDltu{\ESKD@tmpdima}){\line(1,0){5}}
+    \fi
+    \put(\ESKDltu{\ESKD@tmpdimc},\ESKDltu{\ESKD@tmpdima}){\line(1,0){5}}
+    \advance \ESKD@tmpcnta 1
+  \repeat
+}
+\newcommand{\ESKDdrawZoneLabelsI}{%
+\linethickness{\ESKDlineThick}
+\ESKD@make@h@zonelabels
+\ifESKD@enable@columns@xxiv
+  \ifdim \ESKD@zonelabel@vs < 292mm
+    \ESKD@make@v@zonelabels{1}\else
+    \ESKD@make@v@zonelabels{0}\fi
+\else
+  \ESKD@make@v@zonelabels{0}
+\fi
+\ifdim \ESKD@margin@si > 5mm
+  \ESKD@tmpdima = \ESKDframeY
+  \ESKD@tmpdimb = \ESKDframeX
+  \advance \ESKD@tmpdimb -5mm
+  \ifESKD@enable@columns@xix\else
+    \put(\ESKDltu{\ESKD@tmpdimb},\ESKDltu{\ESKD@tmpdima}){%
+      \line(0,1){145}}
+  \fi
+  \advance \ESKD@tmpdima 145mm
+  \put(\ESKDltu{\ESKD@tmpdimb},\ESKDltu{\ESKD@tmpdima}){%
+    \line(0,1){22}}
+  \advance \ESKD@tmpdima 22mm
+  \ifESKD@enable@columns@xxiv\else
+    \put(\ESKDltu{\ESKD@tmpdimb},\ESKDltu{\ESKD@tmpdima}){%
+      \line(0,1){120}}
+  \fi
+  \advance \ESKD@tmpdima 120mm
+  \ESKD@tmpdimc = \ESKDframeY
+  \advance \ESKD@tmpdimc \ESKDframeH
+  \advance \ESKD@tmpdimc -\ESKD@tmpdima
+  \put(\ESKDltu{\ESKD@tmpdimb},\ESKDltu{\ESKD@tmpdima}){%
+    \line(0,1){\ESKDltu{\ESKD@tmpdimc}}}
+  \advance \ESKD@tmpdima \ESKD@tmpdimc
+  \put(\ESKDltu{\ESKD@tmpdimb},\ESKDltu{\ESKD@tmpdima}){%
+    \line(1,0){5}}
+\fi}
+\newcommand{\ESKDdrawZoneLabelsII}{%
+\linethickness{\ESKDlineThick}
+\ESKD@make@h@zonelabels
+\ESKD@make@v@zonelabels{0}
+\ifdim \ESKD@margin@si > 5mm
+  \ESKD@tmpdima = \ESKDframeY
+  \ESKD@tmpdimb = \ESKDframeX
+  \advance \ESKD@tmpdimb -5mm
+  \ifESKD@enable@columns@xix\else
+    \put(\ESKDltu{\ESKD@tmpdimb},\ESKDltu{\ESKD@tmpdima}){%
+      \line(0,1){145}}
+  \fi
+  \advance \ESKD@tmpdima 145mm
+  \ESKD@tmpdimc = \ESKDframeY
+  \advance \ESKD@tmpdimc \ESKDframeH
+  \advance \ESKD@tmpdimc -\ESKD@tmpdima
+  \put(\ESKDltu{\ESKD@tmpdimb},\ESKDltu{\ESKD@tmpdima}){%
+    \line(0,1){\ESKDltu{\ESKD@tmpdimc}}}
+  \advance \ESKD@tmpdima \ESKD@tmpdimc
+  \put(\ESKDltu{\ESKD@tmpdimb},\ESKDltu{\ESKD@tmpdima}){%
+    \line(1,0){5}}
+\fi}
+\fi
+
+\RequirePackage{eskdhash}
+
+\newcommand{\ESKDnewStyle}[2]{%
+  \ESKD@hash@new{@style@draw@#1}%
+  \@namedef{ESKD@style@sh@#1}{#2}}
+
+\newcommand{\ESKDputOnStyle}[3]{%
+  \ESKD@hash@set{@style@draw@#1}{#2}{#3}}
+\newcommand{\ESKDremoveFromStyle}[2]{%
+  \ESKD@hash@set{@style@draw@#1}{#2}{}}
+
+\ESKDnewStyle{empty}{0mm}
+
+\ESKDnewStyle{title}{0mm}
+\ESKDputOnStyle{title}{frame}{\ESKDdrawFrame}
+\ifESKD@enable@columns@xix
+  \ESKDputOnStyle{title}{columnsxix}{\ESKDdrawColumnsXIX}
+\fi
+
+\ESKDnewStyle{formI}{\ifESKD@enable@columns@xxvii 63mm\else 55mm\fi}
+\ESKDputOnStyle{formI}{frame}{\ESKDdrawFrame}
+\ESKDputOnStyle{formI}{stamp}{\ESKDdrawStampI}
+\ifESKD@enable@columns@xix
+  \ESKDputOnStyle{formI}{columnsxix}{\ESKDdrawColumnsXIX}
+\fi
+\ifESKD@enable@columns@xxiv
+  \ESKDputOnStyle{formI}{columnsxxiv}{\ESKDdrawColumnsXXIV}
+\fi
+\ifESKD@enable@column@xxvi
+  \ESKDputOnStyle{formI}{columnxxvi}{\ESKDdrawColumnXXVI}
+\fi
+\ifESKD@enable@columns@xxvii
+  \ESKDputOnStyle{formI}{columnsxxvii}{\ESKDdrawColumnsXXVIIi}
+\fi
+\ifESKD@enable@column@xxxi
+  \ESKDputOnStyle{formI}{columnxxxi}{\ESKDdrawColumnXXXI}
+\fi
+\ifESKD@enable@column@xxxii
+  \ESKDputOnStyle{formI}{columnxxxii}{\ESKDdrawColumnXXXII}
+\fi
+\ifESKD@enable@column@xxxiii
+  \ESKDputOnStyle{formI}{columnxxxiii}{\ESKDdrawColumnXXXIII}
+\fi
+\ifESKD@enable@column@xxxiv
+  \ESKDputOnStyle{formI}{columnxxxiv}{\ESKDdrawColumnXXXIV}
+\fi
+\ifESKD@zonelabels%
+  \ESKDputOnStyle{formI}{zonelabels}{\ESKDdrawZoneLabelsI}
+\fi
+
+\ESKDnewStyle{formII}{\ifESKD@enable@columns@xxvii 62mm\else 40mm\fi}
+\ESKDputOnStyle{formII}{frame}{\ESKDdrawFrame}
+\ESKDputOnStyle{formII}{stamp}{\ESKDdrawStampII}
+\ifESKD@enable@columns@xix
+  \ESKDputOnStyle{formII}{columnsxix}{\ESKDdrawColumnsXIX}
+\fi
+\ifESKD@enable@columns@xxiv
+  \ESKDputOnStyle{formII}{columnsxxiv}{\ESKDdrawColumnsXXIV}
+\fi
+\ifESKD@enable@columns@xxvii
+  \ESKDputOnStyle{formII}{columnsxxvii}{\ESKDdrawColumnsXXVIIii}
+\fi
+\ifESKD@enable@column@xxxi
+  \ESKDputOnStyle{formII}{columnxxxi}{\ESKDdrawColumnXXXI}
+\fi
+\ifESKD@enable@column@xxxii
+  \ESKDputOnStyle{formII}{columnxxxii}{\ESKDdrawColumnXXXII}
+\fi
+
+\ESKDnewStyle{formIIab}{15mm}
+\ESKDputOnStyle{formIIab}{frame}{\ESKDdrawFrame}
+\ESKDputOnStyle{formIIab}{stamp}{%
+  \ifESKD@twoside%
+    \ifodd\c@page\ESKDdrawStampIIa\else\ESKDdrawStampIIb\fi%
+  \else\ESKDdrawStampIIa\fi}
+\ifESKD@enable@columns@xix
+  \ESKDputOnStyle{formIIab}{columnsxix}{%
+    \ifESKD@twoside\ifodd\c@page\ESKDdrawColumnsXIX\fi%
+    \else\ESKDdrawColumnsXIX\fi}
+\fi
+\ifESKD@enable@column@xxxi
+  \ESKDputOnStyle{formIIab}{columnxxxi}{\ESKDdrawColumnXXXI}
+\fi
+\ifESKD@enable@column@xxxii
+  \ESKDputOnStyle{formIIab}{columnxxxii}{\ESKDdrawColumnXXXII}
+\fi
+\ifESKD@zonelabels
+  \ESKDputOnStyle{formIIab}{zonelabels}{\ESKDdrawZoneLabelsII}
+\fi
+
+\newlength{\ESKD@curpad@h}
+\newlength{\ESKD@curpad@v}
+\setlength{\ESKD@curpad@h}{\ESKD@padding@h}
+\setlength{\ESKD@curpad@v}{\ESKD@padding@v}
+
+%\RequirePackage{everyshi}
+%\RequirePackage{everyshi}
+\def\ESKD@curstyle{}
+\def\ESKD@thisstyle{}
+\def\ESKD@extra@Hook{}
+\def\ESKD@extra@ThisHook{}
+%% create new save box
+\newsavebox{\ESKDFRAME}
+
+\newcommand{\ESKD@ShipoutPicture}{%
+    \ifESKD@twoside
+      \ifodd\c@page
+        \ESKDframeX=\ESKD@margin@si
+      \else
+        \ESKDframeX=\ESKD@margin@so
+      \fi
+    \else
+      \ESKDframeX=\ESKD@margin@si
+    \fi
+    \ESKDframeY=\ESKD@margin@b
+    \ESKDstampX=\ESKDframeX
+    \advance\ESKDstampX \ESKDframeW
+    \advance\ESKDstampX -185mm
+    \ESKDstampY=\ESKDframeY
+    \savebox{\ESKDFRAME}(0,0){
+    \unitlength=1mm
+    \begin{picture}(0,0)(\ESKDltu{\ESKD@origin@x},\ESKDltu{\ESKD@origin@y})%
+      \ifx\ESKD@thisstyle\@empty
+        \let\ESKD@thisstyle\ESKD@curstyle
+      \fi
+      \loop
+      \ifnum \ESKD@hash@pos{@style@draw@\ESKD@thisstyle} %
+        < \ESKD@hash@count{@style@draw@\ESKD@thisstyle}
+        \ESKD@hash@next@value{@style@draw@\ESKD@thisstyle}\relax
+      \repeat
+      \global\let\ESKD@thisstyle\@empty%
+    \end{picture}}%
+}
+
+\RequirePackage{fancyhdr}
+%% set "fancy" pagestyle and apply it for all pages as default
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}%% disable ruler in header
+%% setup "fancy" pagestyle
+\fancyhf{}
+\fancyhead[L]{%
+\unitlength=1mm
+\begin{picture}(0,0)(0,0)
+  \ifthenelse{\equal{\ESKD@curstyle}{title}}{% for title page style
+  \ESKD@ShipoutPicture             % create saved box
+  \put(0,-12){\usebox{\ESKDFRAME}} % put saved
+  }{ % for any other page style
+  \ESKD@ShipoutPicture             % create saved box
+  \put(2,-7){\usebox{\ESKDFRAME}}  % put saved box
+  }
+\end{picture}
+}
+%\EveryShipout{\ESKD@ShipoutPicture}
+
+\RequirePackage{chngpage}
+\RequirePackage{ifpdf}
+
+% \ESKD@tmpdima --- width
+% \ESKD@tmpdimb --- height
+\newcommand{\ESKDstyle}[1]{%
+%\pagestyle{empty}%
+\def\ESKD@curstyle{#1}%
+\ifpdf%
+  \setlength{\ESKD@tmpdimb}{\pdfpageheight}%
+  \setlength{\ESKD@tmpdima}{\pdfpagewidth}%
+\else%
+  \setlength{\ESKD@tmpdima}{\paperwidth}%
+  \setlength{\ESKD@tmpdimb}{\paperheight}%
+\fi%
+\changetext{\ESKD@tmpdimb-\ESKD@margin@t-\ESKD@margin@b-2\ESKD@curpad@v%
+  \expandafter-\@nameuse{ESKD@style@sh@\ifESKD@ignstamp empty\else #1\fi}-\textheight}%
+  {\ESKD@tmpdima-\ESKD@margin@si-\ESKD@margin@so-2\ESKD@padding@h-\textwidth}{}{}{}%
+\let\ESKD@thisstyle\@empty}
+
+\newcommand{\ESKDthisStyle}[1]{%
+%\thispagestyle{empty}%
+\def\ESKD@thisstyle{#1}%
+\ifpdf%
+  \setlength{\ESKD@tmpdimb}{\pdfpageheight}%
+\else%
+  \setlength{\ESKD@tmpdimb}{\paperheight}%
+\fi%
+\setlength{\vsize}{\ESKD@tmpdimb-\ESKD@margin@t-\ESKD@margin@b-2\ESKD@curpad@v%
+  \expandafter-\@nameuse{ESKD@style@sh@\ifESKD@ignstamp empty\else #1\fi}}%
+\setlength{\@colht}{\vsize}\setlength{\@colroom}{\vsize}}
+
+\newcommand{\ESKDput}[1]{\def\ESKD@extra@Hook{#1}}
+\newcommand{\ESKDthisPut}[1]{\def\ESKD@extra@ThisHook{#1}}
+
+\newcommand{\ESKDclearDoublePage}{%
+  \ifESKD@twoside%
+    \clearpage%
+    \ifodd\c@page\else\ESKDthisStyle{empty}\rule{0mm}{0mm}\newpage\fi%
+  \else\clearpage\fi}
+
+\ESKDstyle{\ESKD@default@style@other}
+\AtBeginDocument{%
+  \ifx\ESKD@default@style@first\ESKD@default@style@other\else
+    \ESKDthisStyle{\ESKD@default@style@first}%
+  \fi}
+
+\newcommand{\ESKDdefaultTitleStyle}[1]{%
+  \renewcommand{\ESKD@default@style@title}{#1}}
+\newcommand{\ESKDdefaultFirstStyle}[1]{%
+  \renewcommand{\ESKD@default@style@first}{#1}}
+\newcommand{\ESKDdefaultStyle}[1]{%
+  \renewcommand{\ESKD@default@style@other}{#1}%
+  \ESKDstyle{#1}}
+
+\newcommand{\ESKDsetPadding}[2]{%
+  \changepage{%
+    2\ESKD@curpad@v-#2-#2}{%
+    2\ESKD@curpad@h-#1-#1}{%
+    #1-\ESKD@curpad@h}{%
+    #1-\ESKD@curpad@h}{}{%
+    #2-\ESKD@curpad@v}{}{}{}
+  \setlength{\ESKD@curpad@h}{#1}
+  \setlength{\ESKD@curpad@v}{#2}
+  \edef\ESKD@tmpcmda{\ESKD@thisstyle}
+  \ifx\ESKD@tmpcmda\@empty\else
+    \ESKDthisStyle{\ESKD@tmpcmda}
+  \fi}
+
+\newenvironment{ESKDpadding}[2]{%
+  \newpage\ESKDsetPadding{#1}{#2}}{%
+  \clearpage\ESKDsetPadding{\ESKD@padding@h}{\ESKD@padding@v}}
+
+\newenvironment{ESKDzeroPadding}{%
+  \begin{ESKDpadding}{0mm}{0mm}}{\end{ESKDpadding}}
+
+\RequirePackage{eskdinfo}
+
+\newcommand{\ESKDtheColumnI}{\ESKDtheTitle\par\ESKDtheDocName}
+\newcommand{\ESKDcolumnI}[1]{\renewcommand{\ESKDtheColumnI}{#1}}
+\newcommand{\ESKDtheColumnII}{\ESKDtheSignature}
+\newcommand{\ESKDcolumnII}[1]{\renewcommand{\ESKDtheColumnII}{#1}}
+\newcommand{\ESKDtheColumnIII}{\ESKDtheMaterial}
+\newcommand{\ESKDcolumnIII}[1]{\renewcommand{\ESKDtheColumnIII}{#1}}
+\newcommand{\ESKDtheColumnIVfI}{\ESKDtheLetterI}
+\newcommand{\ESKDcolumnIVfI}[1]{\renewcommand{\ESKDtheColumnIVfI}{#1}}
+\newcommand{\ESKDtheColumnIVfII}{\ESKDtheLetterII}
+\newcommand{\ESKDcolumnIVfII}[1]{\renewcommand{\ESKDtheColumnIVfII}{#1}}
+\newcommand{\ESKDtheColumnIVfIII}{\ESKDtheLetterIII}
+\newcommand{\ESKDcolumnIVfIII}[1]{\renewcommand{\ESKDtheColumnIVfIII}{#1}}
+\newcommand{\ESKDtheColumnV}{\ESKDtheMass}
+\newcommand{\ESKDcolumnV}[1]{\renewcommand{\ESKDtheColumnV}{#1}}
+\newcommand{\ESKDtheColumnVI}{\ESKDtheScale}
+\newcommand{\ESKDcolumnVI}[1]{\renewcommand{\ESKDtheColumnVI}{#1}}
+\newcommand{\ESKDtheColumnIX}{\ESKDtheGroup}
+\newcommand{\ESKDcolumnIX}[1]{\renewcommand{\ESKDtheColumnIX}{#1}}
+\newcommand{\ESKDtheColumnXIfI}{\ESKDtheAuthor}
+\newcommand{\ESKDcolumnXIfI}[1]{\renewcommand{\ESKDtheColumnXIfI}{#1}}
+\newcommand{\ESKDtheColumnXIfII}{\ESKDtheChecker}
+\newcommand{\ESKDcolumnXIfII}[1]{\renewcommand{\ESKDtheColumnXIfII}{#1}}
+\newcommand{\ESKDtheColumnXIfIII}{}
+\newcommand{\ESKDcolumnXIfIII}[1]{\renewcommand{\ESKDtheColumnXIfIII}{#1}}
+\newcommand{\ESKDtheColumnXIfIV}{}
+\newcommand{\ESKDcolumnXIfIV}[1]{\renewcommand{\ESKDtheColumnXIfIV}{#1}}
+\newcommand{\ESKDtheColumnXIfV}{\ESKDtheNormContr}
+\newcommand{\ESKDcolumnXIfV}[1]{\renewcommand{\ESKDtheColumnXIfV}{#1}}
+\newcommand{\ESKDtheColumnXIfVI}{\ESKDtheApprovedBy}
+\newcommand{\ESKDcolumnXIfVI}[1]{\renewcommand{\ESKDtheColumnXIfVI}{#1}}
+\newcommand{\ESKDtheColumnXIX}{}
+\newcommand{\ESKDcolumnXIX}[1]{\renewcommand{\ESKDtheColumnXIX}{#1}}
+\newcommand{\ESKDtheColumnXXI}{}
+\newcommand{\ESKDcolumnXXI}[1]{\renewcommand{\ESKDtheColumnXXI}{#1}}
+\newcommand{\ESKDtheColumnXXII}{}
+\newcommand{\ESKDcolumnXXII}[1]{\renewcommand{\ESKDtheColumnXXII}{#1}}
+\newcommand{\ESKDtheColumnXXIV}{}
+\newcommand{\ESKDcolumnXXIV}[1]{\renewcommand{\ESKDtheColumnXXIV}{#1}}
+\newcommand{\ESKDtheColumnXXV}{}
+\newcommand{\ESKDcolumnXXV}[1]{\renewcommand{\ESKDtheColumnXXV}{#1}}
+\newcommand{\ESKDtheColumnXXVII}{}
+\newcommand{\ESKDcolumnXXVII}[1]{\renewcommand{\ESKDtheColumnXXVII}{#1}}
+\newcommand{\ESKDtheColumnXXVIII}{}
+\newcommand{\ESKDcolumnXXVIII}[1]{\renewcommand{\ESKDtheColumnXXVIII}{#1}}
+\newcommand{\ESKDtheColumnXXIX}{}
+\newcommand{\ESKDcolumnXXIX}[1]{\renewcommand{\ESKDtheColumnXXIX}{#1}}
+\newcommand{\ESKDtheColumnXXX}{}
+\newcommand{\ESKDcolumnXXX}[1]{\renewcommand{\ESKDtheColumnXXX}{#1}}
+\newcommand{\ESKDtheColumnXXXII}{\@nameuse{ESKD\ESKD@paper FormatName}}
+\newcommand{\ESKDcolumnXXXII}[1]{\renewcommand{\ESKDtheColumnXXXII}{#1}}
+\newcommand{\ESKDtheColumnXXXIV}{}
+\newcommand{\ESKDcolumnXXXIV}[1]{\renewcommand{\ESKDtheColumnXXXIV}{#1}}
+

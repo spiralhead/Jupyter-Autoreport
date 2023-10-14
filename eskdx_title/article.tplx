@@ -1,0 +1,220 @@
+% Default to the notebook output style
+((* set cell_style = 'style_jupyter.tex.j2' *))
+% Inherit from the specified cell style.
+((* extends cell_style *))
+((* block docclass *))
+\documentclass[russian,utf8,pointsection,columnsxix,nocolumnxxxi,nocolumnxxxii]{eskdtext}
+((* endblock docclass *))
+
+
+((* block packages *))
+%!!!!!!!!!!!!!!!!!!!From super template start!!!!!!!!!!!!!!!!!!!!!!
+	\usepackage[table]{xcolor}
+	\usepackage[breakable]{tcolorbox}
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+   % \DeclareCaptionFormat{nocaption}{}
+
+%	\captionsetup{%
+%	labelsep=newline,
+%	justification=raggedleft,
+%	labelfont=bf,
+%	singlelinecheck=off
+%	}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+
+    \usepackage{iftex}
+    \ifPDFTeX
+        \usepackage[T1]{fontenc}
+        \IfFileExists{alphabeta.sty}{
+              \usepackage{alphabeta}
+          }{
+              \usepackage[mathletters]{ucs}
+              \usepackage[utf8x]{inputenc}
+          }
+    \else
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+    \fi
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    %\usepackage{titling} break eskdx
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{array}     % table support for pandoc >= 2.11.3
+    \usepackage{calc}      % table minipage width calculation for pandoc >= 2.11.1
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+	
+%!!!!!!!!!!!!!!!!!!!From super template end!!!!!!!!!!!!!!!!!!!!!!
+\usepackage{enumerate} % Needed for markdown enumerations to work
+	\newcommand{\No}{\textnumero}
+\usepackage{fontspec}
+
+%%% Что бы работал eskdx и некоторые другие пакеты LaTeX
+\usepackage{xecyr}
+%%% Запустило возможность использования шрифтов
+\usepackage{tinos}
+%%% Для работы шрифтов
+\usepackage{xunicode,xltxtra}
+
+%%% Для работы с русскими текстами (расстановки переносов, последовательность комманд строго обязательна)
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\defaultfontfeatures{Mapping=tex-text} % Для того чтобы работали стандартные сочетания символов ---, --, << >> и т.п.
+%\newfontfamily{\cyrillicfontt}{GOST_B}
+%\set{GOST_type_A}
+\setmainfont{GOST_type_A}
+\setromanfont{Times New Roman} 
+\setsansfont{Times New Roman} 
+\setmonofont{Times New Roman} 
+
+\newfontfamily{\cyrillicfont}{GOST_type_A} 
+\newfontfamily{\cyrillicfontrm}{Times New Roman}
+\newfontfamily{\cyrillicfonttt}{Times New Roman}
+\newfontfamily{\cyrillicfontsf}{Times New Roman}
+
+%\defaultfontfeatures{Mapping=tex-text}
+
+	% Для греческих юникодовских символов в тексте
+	\usepackage[Latin,Greek]{ucharclasses}
+	%Для рамки в титульном листе
+	\usepackage{fancybox}
+
+	% Для переноса текста в колонках
+	\newcolumntype{L}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+	\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+	\newcolumntype{R}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+	%Для цветных ячеек в таблице
+	%Нумерация для всех формул внутри \[\]
+	\newcommand{\myequation}{\begin{equation}}
+	\newcommand{\myendequation}{\end{equation}}
+	\let\[\myequation
+	\let\]\myendequation
+
+%%% Для работы со сложными формулами
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%%% Что бы использовать символ градуса (°) - \degree
+\usepackage{gensymb}
+
+
+%%% Для переноса составных слов
+%\XeTeXinterchartokenstate=1
+\XeTeXcharclass `\- 24
+\XeTeXinterchartoks 24 0 ={\hskip\z@skip}
+\XeTeXinterchartoks 0 24 ={\nobreak}
+
+%%% Ставим подпись к рисункам. Вместо «рис. 1» будет «Рисунок 1»
+\addto{\captionsrussian}{\renewcommand{\figurename}{Рисунок}}
+%%% Убираем точки после цифр в заголовках
+\def\russian@capsformat{%
+  \def\postchapter{\@aftersepkern}%
+  \def\postsection{\@aftersepkern}%
+  \def\postsubsection{\@aftersepkern}%
+  \def\postsubsubsection{\@aftersepkern}%
+  \def\postparagraph{\@aftersepkern}%
+  \def\postsubparagraph{\@aftersepkern}%
+}
+
+
+
+% Автоматически переносить на след. строку слова которые не убираются
+% в строке
+\sloppy
+
+%%% Для вставки рисунков
+\usepackage{graphicx}
+
+%%% Для вставки интернет ссылок, полезно в библиографии
+\usepackage{url}
+
+%%% Подподразделы(\subsubsection) не выводим в содержании
+\setcounter{tocdepth}{2}
+
+%%% Каждый раздел (\section) с новой страницы
+\let\stdsection\section
+\renewcommand\section{\newpage\stdsection}
+
+%%% В введении нумерация подразделов идёт с буквой «В» (например В.1)
+\makeatletter
+\renewcommand\thesubsection{\ifnum\c@section=0{В.\arabic{subsection}}\else{\arabic{section}.\arabic{subsection}}\fi}
+\makeatother
+
+	\DeclareSymbolFont{cyrletters}{\encodingdefault}{\familydefault}{m}{it}
+\newcommand{\makecyrmathletter}[1]{%
+	\begingroup\lccode`a=#1\lowercase{\endgroup
+		\Umathcode`a}="0 \csname symcyrletters\endcsname\space #1
+}
+\count255="409
+\loop\ifnum\count255<"44F
+\advance\count255 by 1
+\makecyrmathletter{\count255}
+\repeat
+
+    ((* block margins *))
+
+    ((* endblock margins *))
+\input{eskdx.tex}
+\captionsetup[table]{%
+labelsep=dash,justification=raggedleft,singlelinecheck=false,%
+aboveskip=3mm,belowskip=0mm}
+((* block title -*))
+((*- endblock title *))
+((* endblock packages *))
+    ((* block predoc *))
+    ((* block maketitle *))\maketitle((* endblock maketitle *))
+	
+    \MainAnnotationText
+	\newpage
+	
+	
+	\tableofcontents
+	((* endblock predoc *))

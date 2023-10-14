@@ -1,0 +1,38 @@
+\newcommand{\названиеКомпании}
+{ОАО <<Все Будет Хорошо!>> 
+	
+	 Отдел опытных работ управления}
+\begin{titlepage}
+\thisfancypage{%
+\setlength{\fboxsep}{2pt}\fbox}{}
+\newgeometry{margin=1cm}
+Приложение к СЗ: \номерСлужебки  \hfill Экз. №: \underline{\hspace{2cm}} \\
+
+\begin{center}
+\includegraphics[width=0.1\textwidth]{logo} \\
+{\large \названиеКомпании}
+\vspace{4cm}\\
+{\textbf{\large Тема: Опытные работы управления}} \\
+\vspace{0.5cm}
+{\Large \textbf{\видОтчетности}}\\
+\vspace{0.5cm}
+
+\идРаботы \\
+\vspace{0.5cm}
+\Large <<\названиеРаботы >> \\
+\vfill
+\makeatletter
+{
+\renewcommand{\arraystretch}{3}
+\begin{tabular}{R{.45\textwidth}cL{.45\textwidth}}%>{\raggedright\arrowbackslash}
+	\ДолжностьАвтораОтчета & & \@author \\ 
+\end{tabular} 
+}
+\makeatother
+\vfill
+
+Москва \the\year ~г.
+\end{center}
+
+\restoregeometry
+\end{titlepage}
