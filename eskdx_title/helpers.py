@@ -33,11 +33,13 @@ class TABLE_LATEX_REPR(object):
         column_format: list[int] | dict[int, str] | str | None = None,
         caption: str = "",
         debug: bool = False,
+        label: str = "default",
     ):
         self.df = df
         self.column_format = column_format
         self.caption = caption
         self.debug = debug
+        self.label = label
 
     def gen_column_formater(self):
         if isinstance(self.column_format, str):
@@ -87,6 +89,7 @@ class TABLE_LATEX_REPR(object):
                 column_format=self.column_format,
                 environment="longtable",
                 convert_css=True,
+                label=self.label,
             )
         )
 
